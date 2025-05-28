@@ -1,61 +1,82 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# non-refresh-file-upload-system
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This project uses **Laravel**, **Sail**, **Redis**, **MySQL**, **Horizon**, **Reverb**, and the **Fetch API** to upload files **without refreshing the webpage**.  
+The project runs on [Windows WSL](https://learn.microsoft.com/en-us/windows/wsl/install). I use Ubuntu.
 
-## About Laravel
+> **Don't forget:** Run `sudo apt update` and `sudo apt upgrade` regularly. They are **two different commands** — please be alert.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+[Oh My Zsh](https://ohmyz.sh/) is a useful terminal helper — install it if possible.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Laravel v12.X
 
-## Learning Laravel
+Laravel is installed using the [official documentation](https://laravel.com/docs/12.x/). It includes Composer, PHP, and the Laravel installer — no need to download them separately like other tutorials suggest.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Sail
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Laravel Sail is a lightweight CLI for Laravel’s default Docker setup.  
+Install [Docker](https://www.docker.com/) separately, then install [Laravel Sail](https://laravel.com/docs/12.x/sail#main-content).  
+Sail includes Docker images for Redis, MySQL, NPM, and Node.js.
 
-## Laravel Sponsors
+> **So just follow Laravel's official documentation and you will get a well-configured setup with the correct versions of PHP, Composer, Laravel Installer, Redis, MySQL, NPM, and Node.js.**
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+---
 
-### Premium Partners
+### What's Included
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+- **PHP** – Included via the Laravel install command
+- **Composer** – Included via the Laravel install command
+- **Laravel Installer** – Included via the Laravel install command
+- **NPM** – Included in Sail
+- **Node.js** – Included in Sail
+- **Redis** – Included in Sail
+- **MySQL** – Included in Sail
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Horizon
 
-## Code of Conduct
+Horizon is a UI and monitor for Redis queues.  
+Install it via the [official Horizon documentation](https://laravel.com/docs/12.x/horizon#main-content).
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+### Reverb
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Reverb is Laravel’s WebSocket server (used for broadcasting).  
+Install and configure it using the [Broadcasting documentation](https://laravel.com/docs/12.x/broadcasting#main-content) and the [Reverb setup guide](https://laravel.com/docs/12.x/reverb).
 
-## License
+---
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Fetch API
+
+Use any easy-to-follow tutorials or blogs found online — they're often easier to understand than the [official Fetch API documentation](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API).
+
+---
+
+## Run the Server
+
+> **Note:** i use `sail` instead of `vendor/bin/sail` for simplicity.
+
+1. Everything required is already installed in this repository — just clone or download it  
+   *(except Docker, WSL, and Oh My Zsh)*.
+2. In the folder where the project is located, open **four terminal windows** and run this command in each:
+   ```wal -d ubuntu```
+3. Open Docker Desktop.
+4. In the first terminal, run:
+    ```sail up```
+5. In the second terminal, run:
+    ```
+    sail npm run build
+    sail npm run dev
+    ```
+6. In the third terminal, run:
+    ```sail artisan horizon```
+7. In the fourth terminal, run:
+    ```sail artisan reverb:start```
+8. Open your browser and go to: http://localhost
+
+9. Open Horizon in a new tab: http://localhost/horizon
